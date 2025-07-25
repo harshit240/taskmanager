@@ -3,12 +3,11 @@ import { Sun, Moon } from 'lucide-react';
 import { useTask } from '../context/TaskContext';
 
 const Header = memo(() => {
-  const { theme, toggleTheme, taskStats } = useTask();
+  const { theme, toggleTheme, taskStats, handleMarkAllCompleted } = useTask();
 
   return (
-    <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
-      theme === 'dark' ? 'bg-gray-900/90 border-gray-700' : 'bg-white/90 border-gray-200'
-    }`}>
+    <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${theme === 'dark' ? 'bg-gray-900/90 border-gray-700' : 'bg-white/90 border-gray-200'
+      }`}>
       <div className="max-w-4xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div>
@@ -21,13 +20,21 @@ const Header = memo(() => {
           </div>
           <button
             onClick={toggleTheme}
-            className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
-              theme === 'dark'
+            className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${theme === 'dark'
                 ? 'bg-gray-800 hover:bg-gray-700 text-yellow-400'
                 : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-            }`}
+              }`}
           >
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+
+          <button
+            onClick={handleMarkAllCompleted}
+            className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${theme === 'dark'
+                ? 'bg-gray-800 hover:bg-gray-700 text-yellow-400'
+                : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+              }`}
+          > Make all as completed
           </button>
         </div>
       </div>

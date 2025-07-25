@@ -7,6 +7,7 @@ export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useLocalStorage('tasks', []);
   const [filter, setFilter] = useState('all');
   const [theme, setTheme] = useLocalStorage('theme', 'light');
+  console.log("tasks => ", tasks)
 
   const addTask = useCallback((text) => {
     const newTask = {
@@ -21,6 +22,14 @@ export const TaskProvider = ({ children }) => {
   const toggleTask = useCallback((id) => {
     setTasks(prev => prev.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
   }, [setTasks]);
+
+  const handleMarkAllCompleted = useCallback(() => {
+    const data = tasks?.map(val => ({
+      ...val,
+      completed: true
+    }))
+    setTasks(data)
+  }, [tasks]);
 
   const deleteTask = useCallback((id) => {
     setTasks(prev => prev.filter(task => task.id !== id));
@@ -69,6 +78,7 @@ export const TaskProvider = ({ children }) => {
     deleteTask,
     onDragEnd,
     taskStats,
+    handleMarkAllCompleted,
   };
 
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
